@@ -68,10 +68,12 @@ function createApp(database) {
   }
 
   function calculateReduction(date) {
+    console.log("Debug: Checking reduction for date ->", date.toString()); // Debugging
     let reduction = 0;
     if (date && isMonday(date) && !isHoliday(date)) {
       reduction = 35;
     }
+    console.log("Debug: Reduction applied ->", reduction); // Debugging
     return reduction;
   }
 
