@@ -85,20 +85,23 @@ function createApp(database) {
   }
 
 
-
   function calculateReduction(date) {
-    console.log("Debug: Checking reduction for date ->", date.toString()); // Debugging
+    console.log("Debug: Checking reduction for date ->", date.toString());
+
     if (!date) {
       console.log("Debug: Date is undefined, no reduction applied");
       return 0;
     }
-    let reduction = 0;
-    if (date && isMonday(date) && !isHoliday(date)) {
-      reduction = 35;
+
+    if (isMonday(date) && !isHoliday(date)) {
+      console.log("Debug: Monday discount applied!");
+      return 35;
+    } else {
+      console.log("Debug: No discount applied");
+      return 0;
     }
-    console.log("Debug: Reduction applied ->", reduction); // Debugging
-    return reduction;
   }
+
 
   function isMonday(date) {
     console.log("Debug: Checking if Monday ->", date.toString());//check
