@@ -76,8 +76,12 @@ function createApp(database) {
   }
 
   function isMonday(date) {
-    return date.getDay() === 1;
-    //date.dayOfWeek
+    return date.dayOfWeek() === 1;
+    //const date = Temporal.PlainDate.from("2021-07-01");
+    // console.log(date.dayOfWeek); // 4; Thursday
+    //const birthday = new Date('August 19, 1975 23:15:30');
+   // const day1 = birthday.getDay();
+// Sunday - Saturday : 0 - 6
   }
 
   function isHoliday(date) {
