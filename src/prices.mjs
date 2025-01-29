@@ -83,13 +83,13 @@ function createApp(database) {
     }
     if (age < 15) {
       console.log(`Debug:  30% discount for children Initial cost: ${finalCost}`);//whats wrong here
-      return finalCost = finalCost * 0.7;//
-      //return Math.ceil(finalCost * 0.7);  // 30% discount for children
+      //finalCost = finalCost * 0.7;//
+      return Math.ceil(finalCost * 0.7);  // 30% discount for children
     }
     if (age > 64) {
       console.log(`Debug:  25% discount for seniors Initial cost: ${finalCost}`);
-      return finalCost = finalCost * 0.75;
-    //  return Math.ceil(finalCost * 0.75);  // 25% discount for seniors
+      //finalCost = finalCost * 0.75;
+      return Math.ceil(finalCost*0.75);  // 25% discount for seniors
     }
 
     return Math.ceil(finalCost);
