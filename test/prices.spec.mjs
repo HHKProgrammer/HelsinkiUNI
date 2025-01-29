@@ -69,8 +69,8 @@ describe.each([
     ].forEach(({ age, expectedCost, date }) => {
       it("works for monday deals", async () => {
         const { body } = await request(app).get(`/prices?type=1jour&age=${age}&date=${date}`);
-          console.log("🔍 Debug: Expected cost ->", 23);
-          console.log("🔍 Debug: Received cost ->", body.cost);
+          console.log(" Debug: Expected cost ->", 23);
+          console.log(" Debug: Received cost ->", body.cost);
         expect(body.cost).equal(expectedCost);
       });
     });
