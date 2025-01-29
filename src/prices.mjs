@@ -101,6 +101,7 @@ function createApp(database) {
   }
 
   function isMonday(date) {
+    console.log("Debug: Checking if Monday ->", date.toString());//check
     return date.dayOfWeek() === 1;
     //const date = Temporal.PlainDate.from("2021-07-01");
     // console.log(date.dayOfWeek); // 4; Thursday
