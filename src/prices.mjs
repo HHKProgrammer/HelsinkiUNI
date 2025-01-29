@@ -50,10 +50,7 @@ function createApp(database) {
   }
 
   function calculateCostForNightTicket(age, baseCost) {
-    if (age === undefined) {
-      return 0;
-    }
-    if (age < 6) {
+    if (age === undefined ||age < 6) {// that could be handeld together
       return 0;
     }
     if (age > 64) {
@@ -72,11 +69,11 @@ function createApp(database) {
     let reduction = calculateReduction(date);
     console.log(`Debug: Reduction applied (${date.toString()}):`, reduction);
 
-    let finalCost = baseCost * (1 - reduction / 100);
+    let finalCost = Math.ceil(baseCost * (1 - reduction / 100));
     console.log("Debug: Final cost after reduction:", finalCost);
 
     if (age === undefined) {
-      return Math.ceil(finalCost);
+      return finalCost;
     }
     if (age < 6) {
       return 0;  // Free for children under 6
