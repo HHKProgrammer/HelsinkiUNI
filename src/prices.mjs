@@ -66,7 +66,7 @@ function createApp(database) {
 
     if (!date) {
       console.warn("Warning: Date is missing, using today's date.");
-      date = new Date();
+      date = Temporal.Now.plainDateISO();
     }
 
     let reduction = calculateReduction(date);
@@ -92,17 +92,23 @@ function createApp(database) {
 
 
 
-  function calculateReduction(date) {
-    console.log("Debug: Checking reduction for date ->", date);
 
-    const parsedDate = new Date(date);
-    if (parsedDate.getDay() === 1) {  // Monday = 1 (Sunday = 0)
+  function calculateReduction(date) {
+    console.log("Debug: Checking reduction for date ->", date.toString());
+
+    if (!date) {
+      console.warn("Warning: No date provided, using today's date");
+      date = Temporal.Now.plainDateISO();
+    }
+
+    if (date.dayOfWeek === 1) {  // Monday check
       console.log("Debug: Applying Monday discount");
       return 35;
     }
 
     return 0;
   }
+
 
 
   function isMonday(date) {
@@ -115,30 +121,31 @@ function createApp(database) {
 // Sunday - Saturday : 0 - 6
     }
 
-    function isHoliday(date) {
-      const holidays = database.getHolidays();
+  function isHoliday(date) {
+    const holidays = database.getHolidays();
 
-      if (!Array.isArray(holidays)) {
-        console.error("Error: Holidays are not an array", holidays);
-        return false;
-      }
-
-      for (let row of holidays) {
-        try {
-          const holiday = Temporal.PlainDate.from(row.holiday);
-          console.log("Debug: Checking holiday:", holiday.toString(), "against date:", date.toString());
-          if (date && date.equals(holiday)) {
-            return true;
-          }
-        } catch (error) {
-          console.error("Error parsing holiday:", row.holiday, error);
-        }
-      }
+    if (!Array.isArray(holidays)) {
+      console.error("Error: Holidays are not an array", holidays);
       return false;
     }
 
+    for (let row of holidays) {
+      try {
+        const holiday = Temporal.PlainDate.from(row.holiday);
+        console.log("Debug: Checking holiday:", holiday.toString(), "against date:", date.toString());
+        if (date.equals(holiday)) {
+          return true;
+        }
+      } catch (error) {
+        console.error("Error parsing holiday:", row.holiday, error);
+      }
+    }
+    return false;
+  }
 
-    return app;
+
+
+  return app;
   }
 
   export {createApp};
