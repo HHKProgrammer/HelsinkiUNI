@@ -99,6 +99,10 @@ function createApp(database) {
 
   function calculateReduction(date) {
     console.log("Debug: Checking reduction for date ->", date.toString());
+    const dayOfWeek = date.getISOFields().isoDay;
+
+    console.log("Debug: date.dayOfWeek =", date.dayOfWeek);
+
     if (date.dayOfWeek === undefined) {
       console.error("Error: date.dayOfWeek is undefined");
     }
