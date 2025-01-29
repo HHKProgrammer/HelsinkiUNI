@@ -112,25 +112,26 @@ function createApp(database) {
 
   function isHoliday(date) {
     const holidays = database.getHolidays();
+
     if (!Array.isArray(holidays)) {
       console.error("Error: Holidays are not an array", holidays);
       return false;
     }
+
     for (let row of holidays) {
-      try{
-      const holiday = Temporal.PlainDate.from(row.holiday);
-      if (
-          (date && date.equals(holiday))//chnage after mondayfail
-      ) {
-        return true;
-      }
-      }
-      catch (error) {
+      try {
+        const holiday = Temporal.PlainDate.from(row.holiday);
+        console.log("Debug: Checking holiday:", holiday.toString(), "against date:", date.toString());
+        if (date && date.equals(holiday)) {
+          return true;
+        }
+      } catch (error) {
         console.error("Error parsing holiday:", row.holiday, error);
       }
     }
     return false;
   }
+
 
   return app;
 }
