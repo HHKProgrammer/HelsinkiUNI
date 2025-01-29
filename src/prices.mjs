@@ -1,5 +1,6 @@
 import "./polyfills";
 import express from "express";
+import {Temporal} from "@js-temporal/polyfill";
 
 // Refactor the following code to get rid of the legacy Date class.
 // Use Temporal.PlainDate instead. See /test/date_conversion.spec.mjs for examples.
@@ -24,8 +25,12 @@ function createApp(database) {
   });
 
   function parseDate(dateString) {
-    if (dateString) {
+    if (!dateString) return undefined; // checking if imput is missing
+    try{
       return  Temporal.PlainDate.from(dateString);//misses from
+    } catch (error) {
+        console.error("Date parsing failed:", error, "Input:", dateString);
+        return undefined;
     }
   }
 
@@ -52,8 +57,14 @@ function createApp(database) {
 
   function calculateCostForDayTicket(age, date, baseCost) {
     console.log("Debug: Base cost before discount:", baseCost);
+    if (!date) {
+      console.error("Error: Date is undefined in calculateCostForDayTicket");
+      return baseCost;
+    }
+
     let reduction = calculateReduction(date);
     console.log("Debug: Reduction applied:", reduction);
+
     if (age === undefined) {
       return Math.ceil(baseCost * (1 - reduction / 100));
     }
@@ -70,8 +81,13 @@ function createApp(database) {
   }
 
 
+
   function calculateReduction(date) {
     console.log("Debug: Checking reduction for date ->", date.toString()); // Debugging
+    if (!date) {
+      console.log("Debug: Date is undefined, no reduction applied");
+      return 0;
+    }
     let reduction = 0;
     if (date && isMonday(date) && !isHoliday(date)) {
       reduction = 35;
@@ -91,12 +107,21 @@ function createApp(database) {
 
   function isHoliday(date) {
     const holidays = database.getHolidays();
+    if (!Array.isArray(holidays)) {
+      console.error("Error: Holidays are not an array", holidays);
+      return false;
+    }
     for (let row of holidays) {
+      try{
       const holiday = Temporal.PlainDate.from(row.holiday);
       if (
           (date && date.equals(holiday))//chnage after mondayfail
       ) {
         return true;
+      }
+      }
+      catch (error) {
+        console.error("Error parsing holiday:", row.holiday, error);
       }
     }
     return false;
