@@ -51,7 +51,9 @@ function createApp(database) {
   }
 
   function calculateCostForDayTicket(age, date, baseCost) {
+    console.log("Debug: Base cost before discount:", baseCost);
     let reduction = calculateReduction(date);
+    console.log("Debug: Reduction applied:", reduction);
     if (age === undefined) {
       return Math.ceil(baseCost * (1 - reduction / 100));
     }
@@ -66,6 +68,7 @@ function createApp(database) {
     }
     return Math.ceil(baseCost * (1 - reduction / 100));
   }
+
 
   function calculateReduction(date) {
     console.log("Debug: Checking reduction for date ->", date.toString()); // Debugging
