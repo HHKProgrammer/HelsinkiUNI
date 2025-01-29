@@ -64,38 +64,33 @@ function createApp(database) {
 
   function calculateCostForDayTicket(age, date, baseCost) {
     console.log("Debug: Base cost before discount:", baseCost);
-    if (!date) {
-      console.error("Error: Date is undefined in calculateCostForDayTicket");
-      return baseCost;
+
+    if (!date) {//missing case
+      console.warn("Warning: Date is missing, defaulting to today");
+      date = Temporal.Now.plainDateISO();
     }
 
-    function calculateCostForDayTicket(age, date, baseCost) {
-      console.log("Debug: Base cost before discount:", baseCost);
-      if (!date) {
-        console.error("Error: Date is undefined in calculateCostForDayTicket");
-        return baseCost;
-      }
+    let reduction = calculateReduction(date);
+    console.log("Debug: Reduction applied:", reduction);
 
-      let reduction = calculateReduction(date);
-      console.log("Debug: Reduction applied:", reduction);
-
-      if (age === undefined) {
-        return Math.ceil(baseCost * (1 - reduction / 100));
-      }
-      if (age < 6) {
-        return 0;
-      }
-      if (age < 15) {
-        return Math.ceil(baseCost * 0.7);
-      }
-      if (age > 64) {
-        return Math.ceil(baseCost * 0.75 * (1 - reduction / 100));
-      }
+    if (age === undefined) {
       return Math.ceil(baseCost * (1 - reduction / 100));
     }
+    if (age < 6) {
+      return 0;
+    }
+    if (age < 15) {
+      return Math.ceil(baseCost * 0.7);
+    }
+    if (age > 64) {
+      return Math.ceil(baseCost * 0.75 * (1 - reduction / 100));
+    }
+    return Math.ceil(baseCost * (1 - reduction / 100));
+  }
 
 
-    function calculateReduction(date) {
+
+  function calculateReduction(date) {
       console.log("Debug: Checking reduction for date ->", date.toString());
 
       if (!date) {
@@ -150,4 +145,3 @@ function createApp(database) {
   }
 
   export {createApp};
-}
