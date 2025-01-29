@@ -88,6 +88,7 @@ function createApp(database) {
       //finalCost = finalCost * 0.75;
       return Math.ceil(finalCost*0.75);  // 25% discount for seniors
     }
+    console.log(`Debug: Final cost before returning: ${finalCost}`);
 
     return Math.ceil(finalCost);
   }
