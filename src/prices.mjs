@@ -70,9 +70,10 @@ function createApp(database) {
     }
 
     let reduction = calculateReduction(date);
-    console.log("Debug: Reduction applied:", reduction);
+    console.log(`Debug: Reduction applied (${date.toString()}):`, reduction);
 
     let finalCost = baseCost * (1 - reduction / 100);
+    console.log("Debug: Final cost after reduction:", finalCost);
 
     if (age === undefined) {
       return Math.ceil(finalCost);
@@ -81,9 +82,11 @@ function createApp(database) {
       return 0;  // Free for children under 6
     }
     if (age < 15) {
+      console.log(`Debug:  30% discount for children Initial cost: ${finalCost}`);//whats wrong here
       return Math.ceil(finalCost * 0.7);  // 30% discount for children
     }
     if (age > 64) {
+      console.log(`Debug:  25% discount for seniors Initial cost: ${finalCost}`);
       return Math.ceil(finalCost * 0.75);  // 25% discount for seniors
     }
 
@@ -93,15 +96,13 @@ function createApp(database) {
 
 
 
+
   function calculateReduction(date) {
     console.log("Debug: Checking reduction for date ->", date.toString());
-
-    if (!date) {
-      console.warn("Warning: No date provided, using today's date");
-      date = Temporal.Now.plainDateISO();
+    if (date.dayOfWeek === undefined) {
+      console.error("Error: date.dayOfWeek is undefined");
     }
-
-    if (date.dayOfWeek === 1) {  // Monday check
+    if (date.dayOfWeek === 1) {  // Monday = 1
       console.log("Debug: Applying Monday discount");
       return 35;
     }
