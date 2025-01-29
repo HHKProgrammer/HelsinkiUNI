@@ -61,54 +61,51 @@ function createApp(database) {
     }
     return baseCost;
   }
-
   function calculateCostForDayTicket(age, date, baseCost) {
     console.log("Debug: Base cost before discount:", baseCost);
 
-    if (!date) {//missing case
-      console.warn("Warning: Date is missing, defaulting to today");
-      date = Temporal.Now.plainDateISO();
+    if (!date) {
+      console.warn("Warning: Date is missing, using today's date.");
+      date = new Date();
     }
 
     let reduction = calculateReduction(date);
     console.log("Debug: Reduction applied:", reduction);
 
+    let finalCost = baseCost * (1 - reduction / 100);
+
     if (age === undefined) {
-      return Math.ceil(baseCost * (1 - reduction / 100));
+      return Math.ceil(finalCost);
     }
     if (age < 6) {
-      return 0;
+      return 0;  // Free for children under 6
     }
     if (age < 15) {
-      return Math.ceil(baseCost * 0.7);
+      return Math.ceil(finalCost * 0.7);  // 30% discount for children
     }
     if (age > 64) {
-      return Math.ceil(baseCost * 0.75 * (1 - reduction / 100));
+      return Math.ceil(finalCost * 0.75);  // 25% discount for seniors
     }
-    return Math.ceil(baseCost * (1 - reduction / 100));
+
+    return Math.ceil(finalCost);
   }
 
 
 
   function calculateReduction(date) {
-      console.log("Debug: Checking reduction for date ->", date.toString());
+    console.log("Debug: Checking reduction for date ->", date);
 
-      if (!date) {
-        console.log("Debug: Date is undefined, no reduction applied");
-        return 0;
-      }
-
-      if (isMonday(date) && !isHoliday(date)) {
-        console.log("Debug: Monday discount applied!");
-        return 35;
-      } else {
-        console.log("Debug: No discount applied");
-        return 0;
-      }
+    const parsedDate = new Date(date);
+    if (parsedDate.getDay() === 1) {  // Monday = 1 (Sunday = 0)
+      console.log("Debug: Applying Monday discount");
+      return 35;
     }
 
+    return 0;
+  }
 
-    function isMonday(date) {
+
+  function isMonday(date) {
       console.log("Debug: Checking if Monday ->", date.toString());//check
       return date.dayOfWeek() === 1;
       //const date = Temporal.PlainDate.from("2021-07-01");
