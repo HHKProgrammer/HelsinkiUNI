@@ -25,12 +25,16 @@ function createApp(database) {
   });
 
   function parseDate(dateString) {
-    if (!dateString) return undefined; // checking if imput is missing
-    try{
-      return  Temporal.PlainDate.from(dateString);//misses from
+    if (!dateString) return undefined; // input misssing check
+
+    try {
+      console.log("Debug: Parsing date from string ->", dateString);//debugging
+      const date = Temporal.PlainDate.from(dateString);//this time as const
+      console.log("Debug: Parsed date ->", date.toString());
+      return date;
     } catch (error) {
-        console.error("Date parsing failed:", error, "Input:", dateString);
-        return undefined;
+      console.error("Error parsing date:", error, "Input:", dateString);//catch error
+      return undefined;
     }
   }
 
