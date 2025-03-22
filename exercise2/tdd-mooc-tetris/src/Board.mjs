@@ -3,17 +3,14 @@ export class Board {
   height;
 
   constructor(width, height) {
-    this.width = width;
-    this.height = height;
+    this.width = 3;
+    this.height = 3;
   }
 
   toString() {
     return [
-      ".......",
-      ".......",
-      ".......",
-      ".......",
-      ".......",
-      ".......",
-    ].join("\n");  }
+    return Array(this.height)
+        .fill(".".repeat(this.width))
+        .join("\n");
+  }
 }
