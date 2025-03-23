@@ -1,7 +1,6 @@
 export class Board {
   width;
   height;
-
   constructor(width, height) {
     this.width = width;
     this.height = height;
@@ -9,6 +8,10 @@ export class Board {
         Array(width).fill(".")
     );
   }
+
+
+
+
 
 
   toString() {
@@ -57,6 +60,38 @@ export class Board {
       this.falling = null;
     }
   }
+  canMoveTo(x, y, shape) {
+    for (let dy = 0; dy < shape.matrix.length; dy++) {
+      for (let dx = 0; dx < shape.matrix[0].length; dx++) {
+        const ch = shape.matrix[dy][dx];
+        if (ch === ".") continue;
+
+        const nx = x + dx;
+        const ny = y + dy;
+
+        if (ny >= this.height || nx < 0 || nx >= this.width || this.grid[ny][nx] !== ".") {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  mergeToGrid(shape, x, y) {
+    for (let dy = 0; dy < shape.matrix.length; dy++) {
+      for (let dx = 0; dx < shape.matrix[0].length; dx++) {
+        const ch = shape.matrix[dy][dx];
+        if (ch !== ".") {
+          const ny = y + dy;
+          const nx = x + dx;
+          if (ny >= 0 && ny < this.height && nx >= 0 && nx < this.width) {
+            this.grid[ny][nx] = ch;
+          }
+        }
+      }
+    }
+  }
+
 
 
 }
