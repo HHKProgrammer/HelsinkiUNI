@@ -91,6 +91,13 @@ export class Board {
       }
     }
   }
+  drop(tetromino) {
+    this.falling = {
+      shape: tetromino,
+      x: Math.floor((this.width - tetromino.matrix[0].length) / 2),
+      y: 0
+    };
+  }
 
 
 
