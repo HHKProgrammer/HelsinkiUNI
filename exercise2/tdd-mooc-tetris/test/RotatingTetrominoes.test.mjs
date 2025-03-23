@@ -1,8 +1,13 @@
 
-import { describe, test } from "vitest";
+import { beforeEach, describe, test } from "vitest"; // add beforeEach
 import { expect } from "chai";
 import { Tetromino } from "../src/Tetromino.mjs";
+import { Board } from "../src/Board.mjs";
 
+let board;
+beforeEach(() => {
+  board = new Board(10, 6); // width 10, height 6 from earlier
+});
 function distinctOrientations(shape) {
   const distinct = new Set();
   let goingRight = shape;
