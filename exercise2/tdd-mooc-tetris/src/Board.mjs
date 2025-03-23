@@ -96,6 +96,16 @@ export class Board {
     };
   }
 
+  moveLeft() {
+    if (!this.falling) return;
+
+    const { shape, x, y } = this.falling;
+    const newX = x - 1;
+
+    if (this.canMoveTo(newX, y, shape)) {
+      this.falling.x = newX;
+    }
+  }
 
 
 }
