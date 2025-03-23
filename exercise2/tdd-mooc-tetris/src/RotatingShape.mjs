@@ -24,4 +24,8 @@ export class RotatingShape { // just for the tests for now
             this.matrix.map(row => row[this.matrix[0].length - 1 - i])
         );
         return new RotatingShape(rotated);    }
+    get matrix() {
+        return this._matrix;
+    }
+
 }
