@@ -3,9 +3,13 @@ export class Board {
   height;
 
   constructor(width, height) {
-    this.width = 3;
-    this.height = 3;
+    this.width = width;
+    this.height = height;
+    this.grid = Array.from({ length: height }, () =>
+        Array(width).fill(".")
+    );
   }
+
 
   toString() {
     return [
