@@ -15,7 +15,6 @@ export class Board {
 
 
   toString() {
-    // Make a deep copy of the board
     const copy = this.grid.map(row => [...row]);
 
     if (this.falling) {
@@ -26,7 +25,10 @@ export class Board {
           if (ch !== ".") {
             const drawY = y + dy;
             const drawX = x + dx;
-            if (drawY >= 0 && drawY < this.height && drawX >= 0 && drawX < this.width) {
+            if (
+                drawY >= 0 && drawY < this.height &&
+                drawX >= 0 && drawX < this.width
+            ) {
               copy[drawY][drawX] = ch;
             }
           }
@@ -37,13 +39,8 @@ export class Board {
     return copy.map(row => row.join("")).join("\n");
   }
 
-  drop(tetromino) {
-    this.falling = {
-      shape: tetromino,
-      x: Math.floor((this.width - tetromino.matrix[0].length) / 2),
-      y: 0
-    };
-  }
+
+
   step() { //stop at the bottom
     if (!this.falling) return;
 
