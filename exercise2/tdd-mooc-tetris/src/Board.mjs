@@ -41,5 +41,22 @@ export class Board {
       y: 0
     };
   }
+  step() { //stop at the bottom
+    if (!this.falling) return;
+
+    // falling piece down
+    const { shape, x, y } = this.falling;
+    const newY = y + 1;
+
+    // Check if we can move down
+    if (this._canMoveTo(x, newY, shape)) {
+      this.falling.y = newY;
+    } else {
+      // Can't movefix the shape to the board
+      this._mergeToGrid(shape, x, y);
+      this.falling = null;
+    }
+  }
+
 
 }
