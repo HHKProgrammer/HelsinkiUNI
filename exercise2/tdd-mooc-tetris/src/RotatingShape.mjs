@@ -9,7 +9,7 @@ export class RotatingShape { // just for the tests for now
         return new RotatingShape(rows);
     }
     toString() {
-        return this.matrix.map(row => row.join("")).join("\n");
+        return this.matrix.map(row => row.join("")).join("\n")+ "\n";
     }
 
     rotateRight() {
