@@ -36,7 +36,7 @@ export class Board {
       }
     }
 
-    return copy.map(row => row.join("")).join("\n");
+    return copy.map(row => row.join("")).join("\n")+"\n";
   }
 
 
