@@ -70,6 +70,22 @@ describe("Falling tetrominoes", () => {
     expect(board.toString()).to.equalShape(before); // no change expected
   });
 
+  test("a tetromino wall-kicks when rotation is not possible since it is to close to the wall", () => {
+    const board = new Board(4, 4);
+    board.drop(Tetromino.T_SHAPE);
+
+    board.moveLeft(); // at  wall
+    board.moveLeft();
+
+    board.rotate(); // should rotate + shift right
+
+    expect(board.toString()).to.equalShape(
+        `....  
+     ..T.  
+     .TT.  
+     ..T.`
+    );
+  });
 
   /*
     test.skip("stop when they hit the bottom", () => {
