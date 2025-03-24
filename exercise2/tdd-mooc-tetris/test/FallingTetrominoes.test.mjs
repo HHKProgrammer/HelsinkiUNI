@@ -41,6 +41,20 @@ describe("Falling tetrominoes", () => {
      ..........`
     );
   });
+  test("a falling tetromino can be rotated", () => {
+    const board = new Board(6, 6);
+    board.drop(Tetromino.T_SHAPE);
+    board.rotate();
+
+    expect(board.toString()).to.equalShape(
+        `......
+     ..T...
+     ..TT..
+     ..T...
+     ...... 
+     ......`
+    );
+  });
 
   /*
     test.skip("stop when they hit the bottom", () => {
