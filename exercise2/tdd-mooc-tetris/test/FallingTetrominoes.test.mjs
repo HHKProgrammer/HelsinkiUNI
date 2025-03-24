@@ -59,7 +59,9 @@ describe("Falling tetrominoes", () => {
   test("a tetromino can not be rotated when there is no room", () => {
     const board = new Board(4, 4);
     board.drop(Tetromino.T_SHAPE);
-    board.moveLeft(); // push into left wall
+    board.step(); // move down one row
+    board.grid[1][1] = "X"; // block rotation space
+
     const before = board.toString();
     board.rotate();
     expect(board.toString()).to.equalShape(before);
