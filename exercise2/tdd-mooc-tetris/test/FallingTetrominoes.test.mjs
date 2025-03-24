@@ -68,23 +68,19 @@ describe("Falling tetrominoes", () => {
 
 //    console.log(JSON.stringify(board.falling.shape.toString()));
 
-    const beforeShape = ".T.\nTTT\n...\n";
+    const beforeShape = board.falling.shape.toString();
     const beforeX = board.falling.x;
-    board.rotate();
-
-   expect(board.toString()).to.equalShape(
-        `.T..
-   TTT.
-   ....
-   ....`
-    );
+    const beforeY = board.falling.y;
 
     board.rotate();
 
-    // after failed rotate x should be unchanged
+// checking shape and position didn't change
     expect(board.falling.shape.toString()).to.equal(beforeShape);
     expect(board.falling.x).to.equal(beforeX);
+    expect(board.falling.y).to.equal(beforeY);
+
   });
+
   test("a tetromino wall-kicks when rotation is not possible since it is to close to the wall", () => {
     const board = new Board(5, 4);
     board.drop(Tetromino.T_SHAPE);

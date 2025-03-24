@@ -119,11 +119,12 @@ export class Board {
   rotate() {
     if (!this.falling) return;
 
-    const rotated = this.falling.shape.rotateRight();
-    const { x, y } = this.falling;
 
+    const { shape, x, y } = this.falling;
+    const rotated = shape.rotateRight();
 
-    const offsets = [0, 1, -1, 2, -2];
+    const offsets = [0]; // only try rotating in-place
+
     for (const dx of offsets) {
       const newX = x + dx;
       if (this.canMoveTo(newX, y, rotated)) {
