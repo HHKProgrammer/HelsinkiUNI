@@ -157,6 +157,9 @@ export class Board {
 
 
 
+  tick() {
+    this.step();
+  }
 
 
 
