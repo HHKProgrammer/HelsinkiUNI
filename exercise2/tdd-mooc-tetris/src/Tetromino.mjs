@@ -24,7 +24,7 @@ export class Tetromino {
     toString() {
         return this.matrix.map(row => row.join("")).join("\n") + "\n";
     }
-
+/*
     static T() {
         return new Tetromino(RotatingShape.fromString(`
       .T.
@@ -48,9 +48,9 @@ export class Tetromino {
         `.OO
      .OO
      ...`
-    );
+    );*/
 
-    export const T_SHAPE = [
+    static T_SHAPE = new Tetromino([
         [
             [".", "T", "."],
             ["T", "T", "T"],
@@ -70,7 +70,7 @@ export class Tetromino {
             [".", "T", "."],
             ["T", "T", "."],
             [".", "T", "."]
-        ],
-    ];
+        ]
+    ]);
 }
 
