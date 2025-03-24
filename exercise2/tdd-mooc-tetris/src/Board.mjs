@@ -49,11 +49,11 @@ export class Board {
     const newY = y + 1;
 
     // Check if we can move down
-    if (this._canMoveTo(x, newY, shape)) {
+    if (this.canMoveTo(x, newY, shape)) {
       this.falling.y = newY;
     } else {
       // Can't movefix the shape to the board
-      this._mergeToGrid(shape, x, y);
+      this.mergeToGrid(shape, x, y);
       this.falling = null;
     }
   }
@@ -121,8 +121,10 @@ export class Board {
 
     const rotated = this.falling.shape.rotateRight();
     const { x, y } = this.falling;
+    if (rotated.toString() === this.falling.shape.toString()) return;
 
-    const offsets = [0, 1, -1]; // for  current, right kick, left kick
+
+    const offsets = [0, 1, -1, 2, -2];
     for (const dx of offsets) {
       const newX = x + dx;
       if (this.canMoveTo(newX, y, rotated)) {

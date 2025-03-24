@@ -60,28 +60,35 @@ describe("Falling tetrominoes", () => {
     const board = new Board(4, 4);
     board.drop(Tetromino.T_SHAPE);
     board.step(); // move down one row
-    board.grid[1][1] = "X"; // block rotation space
+    //board.grid[1][1] = "X"; // block rotation space
+// stoping where rotation would want to go
+    board.grid[1][1] = "X";
+    board.grid[2][1] = "X";
+    board.grid[3][1] = "X";
 
-    const before = board.toString();
+    const beforeShape = board.falling.shape.toString();
+    const beforeX = board.falling.x;
     board.rotate();
-    expect(board.toString()).to.equalShape(before);
+
+    expect(board.falling.shape.toString()).to.equal(beforeShape);
+    expect(board.falling.x).to.equal(beforeX); // did not move sideways
 
   });
 
   test("a tetromino wall-kicks when rotation is not possible since it is to close to the wall", () => {
-    const board = new Board(4, 4);
+    const board = new Board(5, 4);
     board.drop(Tetromino.T_SHAPE);
 
     board.moveLeft(); // at  wall
     board.moveLeft();
-
     board.rotate(); // should rotate + shift right
 
     expect(board.toString()).to.equalShape(
-        `....  
+        ` 
    ..T.  
    .TT.  
-   ..T.  
+   ..T.
+   ....  
   `
     );
 
