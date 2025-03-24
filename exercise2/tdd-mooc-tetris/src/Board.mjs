@@ -91,6 +91,13 @@ export class Board {
     }
   }
   drop(tetromino) {
+    //  drop(X style calls for tests
+    if (typeof tetromino === "string") {
+      tetromino = {
+        matrix: [[tetromino]],
+        rotateRight: () => tetromino
+      };
+    }
     this.falling = {
       shape: tetromino,
       x: Math.floor((this.width - tetromino.matrix[0].length) / 2),
