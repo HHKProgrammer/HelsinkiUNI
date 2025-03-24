@@ -116,6 +116,17 @@ export class Board {
       this.falling.x = newX;
     }
   }
+  rotate() {
+    if (!this.falling) return;
+
+    const { shape, x, y } = this.falling;
+    const rotated = shape.rotateRight();
+
+    if (this.canMoveTo(x, y, rotated)) {
+      this.falling.shape = rotated;
+    }
+  }
+
 
 
 

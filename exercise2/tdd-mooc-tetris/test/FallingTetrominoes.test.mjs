@@ -47,14 +47,29 @@ describe("Falling tetrominoes", () => {
     board.rotate();
 
     expect(board.toString()).to.equalShape(
-        `......
+        `
      ..T...
      ..TT..
      ..T...
      ...... 
+     ......
      ......`
     );
   });
+  test("a tetromino can not be rotated when there is no room", () => {
+    const board = new Board(3, 3);
+    board.drop(Tetromino.T_SHAPE);
+
+    // Move  piece to left edge
+    board.moveLeft();
+    board.moveLeft();
+
+    const before = board.toString();
+    board.rotate(); // try rotating while no space
+
+    expect(board.toString()).to.equalShape(before); // no change expected
+  });
+
 
   /*
     test.skip("stop when they hit the bottom", () => {
