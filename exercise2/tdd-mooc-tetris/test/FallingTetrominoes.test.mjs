@@ -85,9 +85,9 @@ describe("Falling tetrominoes", () => {
 
     expect(board.toString()).to.equalShape(
         ` 
-   ..T.  
+   .T..  
    .TT.  
-   ..T.
+   .T..
    ....  
   `
     );

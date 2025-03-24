@@ -121,7 +121,6 @@ export class Board {
 
     const rotated = this.falling.shape.rotateRight();
     const { x, y } = this.falling;
-    if (rotated.toString() === this.falling.shape.toString()) return;
 
 
     const offsets = [0, 1, -1, 2, -2];
