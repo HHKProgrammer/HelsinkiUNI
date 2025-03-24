@@ -55,6 +55,8 @@ export class Board {
       // Can't movefix the shape to the board
       this.mergeToGrid(shape, x, y);
       this.falling = null;
+      this.clearFullRows();
+
     }
   }
   canMoveTo(x, y, shape) {
@@ -135,6 +137,16 @@ export class Board {
     }
     // If none worked, do nothing
   }
+  clearFullRows() {
+    this.grid = this.grid.filter(row => row.includes("."));
+
+    //  empty rows at  top for each cleared row
+    while (this.grid.length < this.height) {
+      this.grid.unshift(Array(this.width).fill("."));
+    }
+  }
+
+
 
 
 

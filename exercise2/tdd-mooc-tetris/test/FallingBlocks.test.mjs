@@ -16,6 +16,30 @@ describe("Falling blocks", () => {
     );
   });
 
+  test("a full line disappears", () => {
+    board.drop("X");
+    board.tick();
+    board.tick();
+    board.tick(); // lands at bottom
+    board.drop("X");
+    board.moveRight();
+    board.tick();
+    board.tick();
+    board.tick(); // lands next to the first block
+    board.drop("X");
+    board.moveLeft();
+    board.tick();
+    board.tick();
+    board.tick(); // completes the row
+
+    //  row  clear
+    expect(board.toString()).to.equalShape(
+        `...
+     ...
+     ...`
+    );
+  });
+
   /*
   describe("When a block is dropped", () => {
     beforeEach(() => {
