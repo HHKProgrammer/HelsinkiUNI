@@ -70,7 +70,12 @@ describe("Falling tetrominoes", () => {
     const beforeX = board.falling.x;
     board.rotate();
 
-    expect(board.falling.shape.toString()).to.equal(beforeShape);
+    expect(board.falling.shape.toString()).to.equal(
+        `.T.
+     TTT
+     ...`
+    );
+    );
     expect(board.falling.x).to.equal(beforeX); // did not move sideways
 
   });
@@ -85,10 +90,10 @@ describe("Falling tetrominoes", () => {
 
     expect(board.toString()).to.equalShape(
         ` 
-   .T..  
-   .TT.  
-   .T..
-   ....  
+   .T...  
+   .TT.. 
+   .T...
+   .....  
   `
     );
 
