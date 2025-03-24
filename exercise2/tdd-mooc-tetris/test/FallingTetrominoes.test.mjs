@@ -60,7 +60,7 @@ describe("Falling tetrominoes", () => {
     const board = new Board(4, 4);
     board.drop(Tetromino.T_SHAPE);
     board.moveLeft(); // push into left wall
-    const before = board.toString(); // <== this is correct placement!
+    const before = board.toString();
     board.rotate();
     expect(board.toString()).to.equalShape(before);
 

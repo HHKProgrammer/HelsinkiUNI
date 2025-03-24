@@ -121,6 +121,7 @@ export class Board {
 
     const rotated = this.falling.shape.rotateRight();
     const { x, y } = this.falling;
+
     const offsets = [0, 1, -1]; // for  current, right kick, left kick
     for (const dx of offsets) {
       const newX = x + dx;
