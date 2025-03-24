@@ -121,28 +121,16 @@ export class Board {
 
     const rotated = this.falling.shape.rotateRight();
     const { x, y } = this.falling;
-
-    //  in place rotation
-    if (this.canMoveTo(x, y, rotated)) {
-      this.falling.shape = rotated;
-      return;
+    const offsets = [0, 1, -1]; // for  current, right kick, left kick
+    for (const dx of offsets) {
+      const newX = x + dx;
+      if (this.canMoveTo(newX, y, rotated)) {
+        this.falling.x = newX;
+        this.falling.shape = rotated;
+        return;
+      }
     }
-
-    // wall kick right
-    if (this.canMoveTo(x + 1, y, rotated)) {
-      this.falling.x += 1;
-      this.falling.shape = rotated;
-      return;
-    }
-
-    // wallkick left
-    if (this.canMoveTo(x - 1, y, rotated)) {
-      this.falling.x -= 1;
-      this.falling.shape = rotated;
-      return;
-    }
-
-    // If no  position found do nothing
+    // If none worked, do nothing
   }
 
 

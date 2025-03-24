@@ -57,17 +57,13 @@ describe("Falling tetrominoes", () => {
     );
   });
   test("a tetromino can not be rotated when there is no room", () => {
-    const board = new Board(3, 3);
+    const board = new Board(4, 4);
     board.drop(Tetromino.T_SHAPE);
+    board.moveLeft(); // push into left wall
+    const before = board.toString(); // <== this is correct placement!
+    board.rotate();
+    expect(board.toString()).to.equalShape(before);
 
-    // Move  piece to left edge
-    board.moveLeft();
-    board.moveLeft();
-
-    const before = board.toString();
-    board.rotate(); // try rotating while no space
-
-    expect(board.toString()).to.equalShape(before); // no change expected
   });
 
   test("a tetromino wall-kicks when rotation is not possible since it is to close to the wall", () => {
@@ -81,10 +77,12 @@ describe("Falling tetrominoes", () => {
 
     expect(board.toString()).to.equalShape(
         `....  
-     ..T.  
-     .TT.  
-     ..T.`
+   ..T.  
+   .TT.  
+   ..T.  
+  `
     );
+
   });
 
   /*
