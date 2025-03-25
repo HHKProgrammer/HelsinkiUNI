@@ -6,20 +6,21 @@ export class Board {
     this.height = height;
     this.grid = Array.from({ length: height }, () =>
         Array(width).fill(".")
-    this.observers = [];//adding observers
     );
+    this.observers = [];//adding observers
+
   }
   addObserver(observer) {
     this.observers.push(observer);
   }
 
-  _notify(event) {
+  notify(event) {
     for (const observer of this.observers) {
       observer(event);
     }
   }
 
-}
+
   toString() {
     const copy = this.grid.map(row => [...row]);
     if (this.falling) {
@@ -92,11 +93,12 @@ export class Board {
     }
   }
   drop(tetromino) {
-    this.falling = {
-      shape: tetromino,
-      x: Math.floor((this.width - tetromino.matrix[0].length) / 2),
-      y: 0
-    };
+    if (typeof tetromino === "string") {
+      tetromino = {
+        matrix: [[tetromino]],
+        rotateRight: () => tetromino
+      };
+    }
   }
 
     //  drop(X style calls for tests
@@ -163,7 +165,6 @@ export class Board {
       this.notify({ type: "lineClear", count: cleared });
     }
   }
-}
 
   tick() {
     this.step();

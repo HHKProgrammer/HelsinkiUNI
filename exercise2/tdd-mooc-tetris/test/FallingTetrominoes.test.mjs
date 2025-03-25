@@ -137,7 +137,7 @@ describe("Falling tetrominoes", () => {
     });*/
   test("notifies observers when lines are cleared", () => {
     const board = new Board(3, 3);
-     const score = new ScoreTracker();
+    const score = new ScoreTracker();
 
 /*
     board.addObserver(event => {
@@ -154,4 +154,3 @@ describe("Falling tetrominoes", () => {
   });
 
 });
-
