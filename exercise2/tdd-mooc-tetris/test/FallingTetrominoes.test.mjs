@@ -150,7 +150,7 @@ describe("Falling tetrominoes", () => {
     board.grid[2] = ["X", "X", "X"];
     board.clearFullRows();
 
-    expect(clearedLines).to.equal(100);
+    expect(score.points).to.equal(100);
   });
 
 });
