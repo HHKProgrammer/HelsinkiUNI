@@ -6,14 +6,16 @@ export class Board {
     this.height = height;
     this.grid = Array.from({ length: height }, () =>
         Array(width).fill(".")
+    this.observers = [];//adding observers
     );
   }
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
 
-
-
-
-
-
+  notify(event) {
+    this.observers.forEach(observer => observer(event));
+  }
   toString() {
     const copy = this.grid.map(row => [...row]);
 
@@ -145,11 +147,16 @@ export class Board {
     // If none worked, do nothing
   }
   clearFullRows() {
+    const before = this.grid.length;
     this.grid = this.grid.filter(row => row.includes("."));
+    const cleared = before - this.grid.length;
 
     //  empty rows at  top for each cleared row
     while (this.grid.length < this.height) {
       this.grid.unshift(Array(this.width).fill("."));
+    }
+    if (cleared > 0) {
+      this.notify({ type: "lineClear", count: cleared });
     }
   }
 
