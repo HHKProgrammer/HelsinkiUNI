@@ -137,19 +137,20 @@ describe("Falling tetrominoes", () => {
     });*/
   test("notifies observers when lines are cleared", () => {
     const board = new Board(3, 3);
-    let clearedLines = 0;
+     const score = new ScoreTracker();
 
+/*
     board.addObserver(event => {
       if (event.type === "lineClear") {
         clearedLines = event.count;
       }
-    });
-
+    });*/
+    board.addObserver(event => score.onEvent(event));
     // fill bottom row
     board.grid[2] = ["X", "X", "X"];
     board.clearFullRows();
 
-    expect(clearedLines).to.equal(1);
+    expect(clearedLines).to.equal(100);
   });
 
 });
