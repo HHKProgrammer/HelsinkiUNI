@@ -13,16 +13,13 @@ export class Board {
     this.observers.push(observer);
   }
 
-
-  notify(event) {
+  _notify(event) {
     for (const observer of this.observers) {
-      if (typeof observer === "function") {
-        observer(event);
-      } else if (typeof observer.onEvent === "function") {
-        observer.onEvent(event);
-      }
+      observer(event);
     }
   }
+
+}
   toString() {
     const copy = this.grid.map(row => [...row]);
     if (this.falling) {
@@ -168,14 +165,8 @@ export class Board {
   }
 }
 
-
-
-
   tick() {
     this.step();
   }
-
-
-
 
 }
