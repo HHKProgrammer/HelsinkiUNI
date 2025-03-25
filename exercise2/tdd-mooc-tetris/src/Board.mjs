@@ -13,12 +13,18 @@ export class Board {
     this.observers.push(observer);
   }
 
+
   notify(event) {
-    this.observers.forEach(observer => observer(event));
+    for (const observer of this.observers) {
+      if (typeof observer === "function") {
+        observer(event);
+      } else if (typeof observer.onEvent === "function") {
+        observer.onEvent(event);
+      }
+    }
   }
   toString() {
     const copy = this.grid.map(row => [...row]);
-
     if (this.falling) {
       const { shape, x, y } = this.falling;
       for (let dy = 0; dy < shape.matrix.length; dy++) {
@@ -27,18 +33,14 @@ export class Board {
           if (ch !== ".") {
             const drawY = y + dy;
             const drawX = x + dx;
-            if (
-                drawY >= 0 && drawY < this.height &&
-                drawX >= 0 && drawX < this.width
-            ) {
+            if (drawY >= 0 && drawY < this.height && drawX >= 0 && drawX < this.width) {
               copy[drawY][drawX] = ch;
             }
           }
         }
       }
     }
-
-    return copy.map(row => row.join("")).join("\n")+"\n";
+    return copy.map(row => row.join("")).join("\n") + "\n";
   }
 
 
@@ -93,8 +95,15 @@ export class Board {
     }
   }
   drop(tetromino) {
+    this.falling = {
+      shape: tetromino,
+      x: Math.floor((this.width - tetromino.matrix[0].length) / 2),
+      y: 0
+    };
+  }
+
     //  drop(X style calls for tests
-    if (typeof tetromino === "string") {
+    /*if (typeof tetromino === "string") {
       tetromino = {
         matrix: [[tetromino]],
         rotateRight: () => tetromino
@@ -105,7 +114,7 @@ export class Board {
       x: Math.floor((this.width - tetromino.matrix[0].length) / 2),
       y: 0
     };
-  }
+  }*/
 
   moveLeft() {
     if (!this.falling) return;
@@ -150,8 +159,6 @@ export class Board {
     const before = this.grid.length;
     this.grid = this.grid.filter(row => row.includes("."));
     const cleared = before - this.grid.length;
-
-    //  empty rows at  top for each cleared row
     while (this.grid.length < this.height) {
       this.grid.unshift(Array(this.width).fill("."));
     }
@@ -159,7 +166,7 @@ export class Board {
       this.notify({ type: "lineClear", count: cleared });
     }
   }
-
+}
 
 
 
