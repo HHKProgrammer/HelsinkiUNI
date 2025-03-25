@@ -1,4 +1,4 @@
-class ScoreTracker {
+export class ScoreTracker {
     constructor() {
         this.points = 0;
     }

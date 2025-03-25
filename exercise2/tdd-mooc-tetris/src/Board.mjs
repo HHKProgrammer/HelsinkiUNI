@@ -99,6 +99,16 @@ export class Board {
         rotateRight: () => tetromino
       };
     }
+
+    if (!tetromino.matrix || !tetromino.matrix[0]) {
+      throw new Error("Invalid tetromino");
+    }
+
+    this.falling = {
+      shape: tetromino,
+      x: Math.floor((this.width - tetromino.matrix[0].length) / 2),
+      y: 0
+    };
   }
 
     //  drop(X style calls for tests
