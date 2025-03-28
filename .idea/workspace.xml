@@ -10,6 +10,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -149,7 +156,7 @@
       <workItem from="1740574257463" duration="5000" />
       <workItem from="1741016304015" duration="18000" />
       <workItem from="1742647582414" duration="9000" />
-      <workItem from="1742670597300" duration="4551000" />
+      <workItem from="1742670597300" duration="43158000" />
     </task>
     <task id="LOCAL-00001" summary="monday tests are failing">
       <option name="closed" value="true" />
